@@ -6,6 +6,31 @@ import org.junit.jupiter.api.Test;
 public class RadioTest {
 
     @Test
+    public void shouldSetNewRadioParam() {
+        Radio rad = new Radio(27);
+
+        Assertions.assertEquals(0, rad.getMinRadioStation());
+        Assertions.assertEquals(26, rad.getMaxRadioStation());
+    }
+
+    @Test
+    public void shouldSetNewRadioParamMin() {
+        Radio rad = new Radio(1);
+
+        Assertions.assertEquals(0, rad.getMinRadioStation());
+        Assertions.assertEquals(0, rad.getMinRadioStation());
+    }
+
+    @Test
+    public void shouldSetNewRadioParamLessMin() {
+        Radio rad = new Radio(-1);
+
+        Assertions.assertEquals(0, rad.getMinRadioStation());
+        Assertions.assertEquals(9, rad.getMaxRadioStation());
+    }
+
+
+    @Test
     public void shouldSetRadioStationMoreMax() {
         Radio rad = new Radio();
         rad.setCurrentRadioStation(12);
@@ -115,7 +140,7 @@ public class RadioTest {
         Radio rad = new Radio();
         rad.setCurrentLevelVolume(-2);
 
-        int expected = 0;
+        int expected = rad.getMinLevelVolume();
         int actual = rad.getCurrentLevelVolume();
 
         Assertions.assertEquals(expected, actual);
@@ -137,7 +162,7 @@ public class RadioTest {
         Radio rad = new Radio();
         rad.setCurrentLevelVolume(120);
 
-        int expected = 0;
+        int expected = rad.getMinLevelVolume();
         int actual = rad.getCurrentLevelVolume();
 
         Assertions.assertEquals(expected, actual);
@@ -173,7 +198,7 @@ public class RadioTest {
         rad.setCurrentLevelVolume(100);
         rad.increaseLevelVolume();
 
-        int expected = 100;
+        int expected = rad.getMaxLevelVolume();
         int actual = rad.getCurrentLevelVolume();
 
         Assertions.assertEquals(expected, actual);
@@ -208,7 +233,7 @@ public class RadioTest {
         rad.setCurrentLevelVolume(0);
         rad.decreaseLevelVolume();
 
-        int expected = 0;
+        int expected = rad.getMinLevelVolume();
         int actual = rad.getCurrentLevelVolume();
 
         Assertions.assertEquals(expected, actual);
